@@ -1,0 +1,50 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2638
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \'97 Create and use new database\
+create database office;\
+use  office;\
+\
+\'97create table\
+CREATE TABLE employee\
+(id INT, name STRING, dept STRING, yoj INT, salary INT)\
+ ROW FORMAT DELIMITED FIELDS TERMINATED BY ','\
+ TBLPROPERTIES ("skip.header.line.count"="1");\
+\
+\'97Load data in employee table\
+\
+LOAD DATA LOCAL INPATH \'91root/EmpData.csv' INTO TABLE employee;\
+\
+Select * FROM employee;\
+\
+\'97 run map reduce\
+\
+Select COUNT(*) FROM employee;\
+\
+Select id, name FROM employee;\
+\
+Select * FROM employee where salary > 3000;\
+\
+\
+INSERT OVERWRITE DIRECTORY '/user/ankita/hiveOutput\'92\
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','\
+SELECT * FROM employee Where dept = \'91IT\'92;\
+\
+dfs -ls /user/ankita/hiveOutput\
+\
+dfs -cat /user/ankita/hiveOutput/000000_0;\
+\
+\
+INSERT OVERWRITE LOCAL DIRECTORY \'91/root/HiveOutput \
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','\
+SELECT * FROM employee;\
+\
+ls root/HiveOutput/\
+\
+cat root/HiveOutput/\
+\
+}
